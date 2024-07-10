@@ -6,13 +6,12 @@
     <title>Homepage</title>
 </head>
 <body>
-    <% if (URLs) { %>
-        <h1>Welcome to the Dynamic Homepage for <%= URLs %></h1>
+    <% if (URLs != null) { %>
         <% if (fileInfo) { %>
             <p>File <%= fileInfo.originalName %> is available for download.</p>
             <a href="/download/<%= URLs %>"><button>Download</button></a>
         <% } else { %>
-            <p>No file uploaded yet.</p>
+            <p>upload the file .</p>
             <form action="/upload" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="URLs" value="<%= URLs %>" />
                 <input type="file" name="profileImage" required />
@@ -22,11 +21,22 @@
     <% } else { %>
         <h1>Welcome to the Homepage</h1>
         <form action="/upload" method="post" enctype="multipart/form-data">
-            <label for="URLs">Enter a unique URL identifier:</label>
             <input type="text" name="URLs" required />
             <input type="file" name="profileImage" required />
             <button type="submit">Upload</button>
         </form>
     <% } %>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
