@@ -2,8 +2,9 @@ const path = require("path");
 const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
+const { Console } = require("console");
 const app = express();
-const PORT = 8000;
+const PORT = 8000
 
 const fileStore = new Map();
 
@@ -50,7 +51,9 @@ app.post('/upload', upload.single('profileImage'), (req, res) => {
         path: req.file.path,
         mimeType: req.file.mimetype,
     };
-
+    console.log(fileInfo);
+    console.log(fileStore)
+    console.log(storage)
     fileStore.set(URLs, fileInfo);
 
     console.log(`File uploaded and accessible at /${URLs}`);
@@ -60,13 +63,17 @@ app.post('/upload', upload.single('profileImage'), (req, res) => {
 app.get('/download/:URLs', (req, res) => {
     const URLs = req.params.URLs;
     const fileInfo = fileStore.get(URLs);
-
+    
     if (fileInfo) {
         res.download(fileInfo.path, fileInfo.originalName);
     } else {
         res.status(404).send("File not found");
     }
 });
+document.querySelector('.file-input-button').addEventListener('click', function() {
+    document.getElementById('profileImage').click();
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
